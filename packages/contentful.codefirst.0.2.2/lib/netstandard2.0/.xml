@@ -1,0 +1,571 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Contentful.CodeFirst</name>
+    </assembly>
+    <members>
+        <member name="T:Contentful.CodeFirst.ContentFieldAttribute">
+            <summary>
+            Attribute specifying options for how a specific property should be stored in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentFieldAttribute.Id">
+            <summary>
+            The id of the field. Will default to the propertyname if not set.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentFieldAttribute.Name">
+            <summary>
+            The name of the field. Will default to the propertyname if not set.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentFieldAttribute.Type">
+            <summary>
+            The type to store this property as in Contentful. See <see cref="T:Contentful.Core.Models.Management.SystemFieldTypes"/> for a list of constants that can be used. 
+            Will default to a type applicable for the property, e.g. text for string properties, Integer for int properties, Date for DateTime properties etc.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentFieldAttribute.Disabled">
+            <summary>
+            Whether or not this field should be disabled for editing.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentFieldAttribute.Localized">
+            <summary>
+            Whether or not this field should support localization.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentFieldAttribute.Omitted">
+            <summary>
+            Whether or not this field should be completely omitted from the API response from the Contentful Delivery API.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentFieldAttribute.Required">
+            <summary>
+            Whether or not this field is required.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentFieldAttribute.ItemsLinkType">
+            <summary>
+            If the field is an array and the ItemsType is Link what link type are the items in the array. Entry or Asset.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentFieldAttribute.ItemsType">
+            <summary>
+            If the field is an array, what are the types in the array. Symbol or Link.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentFieldAttribute.LinkType">
+            <summary>
+            If the field is a Link what type of link. Entry or Asset.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.ContentfulCodeFirstConfiguration">
+            <summary>
+            Class encapsulating options for configuring your code first strategy.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentfulCodeFirstConfiguration.ApiKey">
+            <summary>
+            The Contentful management api key.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentfulCodeFirstConfiguration.SpaceId">
+            <summary>
+            The space to apply changes to.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentfulCodeFirstConfiguration.ForceUpdateContentTypes">
+            <summary>
+            Whether or not to overwrite existing content types if possible.
+            Be careful as this can result in loss of data.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentfulCodeFirstConfiguration.PublishAutomatically">
+            <summary>
+            Whether the content types should be published automatically once created or updated.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.ContentTypeAttribute">
+            <summary>
+            Indicates that a class should be used as a blueprint for a content type.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentTypeAttribute.Id">
+            <summary>
+            The id of the content type. Will default to the class name.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentTypeAttribute.Name">
+            <summary>
+            The name of the content type. Will default to the class name.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentTypeAttribute.DisplayField">
+            <summary>
+            The id of the field to use as a displayfield for the content type.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentTypeAttribute.Description">
+            <summary>
+            The description of the content type.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentTypeAttribute.Order">
+            <summary>
+            The order in which this content type should be created by the Contentful API. This can be relevant if you have content types depending on each other.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.ContentTypeBuilder">
+            <summary>
+            The main class of Contentful.CodeFirst. Allows you to configure and call the Contentful API to create content types from your code.
+            </summary>
+        </member>
+        <member name="M:Contentful.CodeFirst.ContentTypeBuilder.LoadTypes(System.String)">
+            <summary>
+            Loads all types with a <see cref="T:Contentful.CodeFirst.ContentTypeAttribute"/> in a given assembly.
+            </summary>
+            <param name="assemblyName">The name of the assembly to load types from.</param>
+            <returns>An enumerable of types loaded.</returns>
+        </member>
+        <member name="M:Contentful.CodeFirst.ContentTypeBuilder.LoadTypes(System.Reflection.Assembly)">
+            <summary>
+            Loads all types with a <see cref="T:Contentful.CodeFirst.ContentTypeAttribute"/> in a given assembly.
+            </summary>
+            <param name="assembly">The assembly to load types from.</param>
+            <returns>An enumerable of types loaded.</returns>
+        </member>
+        <member name="M:Contentful.CodeFirst.ContentTypeBuilder.InitializeContentTypes(System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            Initializes content types ready to be sent to the Contentful API from a number of types.
+            </summary>
+            <param name="types">The types to be transformed into content types. Could be chained to the output of the <see cref="M:Contentful.CodeFirst.ContentTypeBuilder.LoadTypes(System.Reflection.Assembly)"/> method.</param>
+            <returns>An enumerable of <see cref="T:Contentful.Core.Models.ContentType"/> ready to be created/updated in Contentful.</returns>
+        </member>
+        <member name="M:Contentful.CodeFirst.ContentTypeBuilder.CreateContentTypes(System.Collections.Generic.IEnumerable{Contentful.CodeFirst.ContentTypeInformation},Contentful.CodeFirst.ContentfulCodeFirstConfiguration,Contentful.Core.IContentfulManagementClient)">
+            <summary>
+            Creates a number of content types in Contentful.
+            </summary>
+            <param name="contentTypes">The content types to create.</param>
+            <param name="configuration">The configuration for the creation process.</param>
+            <param name="client">The optional client to use for creation.</param>
+            <returns>A list of created or updated content types.</returns>
+        </member>
+        <member name="M:Contentful.CodeFirst.ContentTypeBuilder.CreateContentTypesFromAssembly(System.String,Contentful.CodeFirst.ContentfulCodeFirstConfiguration,Contentful.Core.IContentfulManagementClient)">
+            <summary>
+            Creates content types in Contentful from any types with a <see cref="T:Contentful.CodeFirst.ContentTypeAttribute"/> found in an Assembly.
+            </summary>
+            <param name="assemblyName">The assembly to load types from.</param>
+            <param name="configuration">The configuration for the creation process.</param>
+            <param name="client">The optional client to use for creation.</param>
+            <returns>A list of created or updated content types.</returns>
+        </member>
+        <member name="T:Contentful.CodeFirst.ContentTypeInformation">
+            <summary>
+            Encapsulates a ContentType and its EditorInterFaceControls.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentTypeInformation.ContentType">
+            <summary>
+            The ContentType.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentTypeInformation.InterfaceControls">
+            <summary>
+            The interface controls of the content type.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.FieldAppearanceAttribute">
+            <summary>
+            Attribute specifying the appearance of a field.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.FieldAppearanceAttribute.ExtensionId">
+            <summary>
+            The id of the UI extension to use in the Contentful WebApp for this field.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.FieldAppearanceAttribute.HelpText">
+            <summary>
+            The helptext to accompany this field.
+            </summary>
+        </member>
+        <member name="M:Contentful.CodeFirst.FieldAppearanceAttribute.#ctor(System.String)">
+            <summary>
+            Creates a new FieldAppearanceAttribute.
+            </summary>
+            <param name="extensionId">The id of the UI extension to use in the Contentful WebApp for this field.</param>
+        </member>
+        <member name="M:Contentful.CodeFirst.FieldAppearanceAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new FieldAppearanceAttribute.
+            </summary>
+            <param name="extensionId">The id of the UI extension to use in the Contentful WebApp for this field.</param>
+            <param name="helpText">The helptext to accompany this field.</param>
+        </member>
+        <member name="P:Contentful.CodeFirst.FieldAppearanceAttribute.EditorInterfaceControl">
+            <summary>
+            Returns the EditorInterfaceControl for this attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.BooleanAppearanceAttribute">
+            <summary>
+            Attribute specifying a field should have the boolean appearance.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.BooleanAppearanceAttribute.TrueLabel">
+            <summary>
+            The label for the true alternative.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.BooleanAppearanceAttribute.FalseLabel">
+            <summary>
+            The label for the false alternative.
+            </summary>
+        </member>
+        <member name="M:Contentful.CodeFirst.BooleanAppearanceAttribute.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates a new BooleanAppearance attribute.
+            </summary>
+            <param name="trueLabel">The label for the true alternative.</param>
+            <param name="falseLabel">The label for the false alternative.</param>
+            <param name="helpText">The helptext to accompany this field.</param>
+        </member>
+        <member name="P:Contentful.CodeFirst.BooleanAppearanceAttribute.EditorInterfaceControl">
+            <summary>
+            Returns the EditorInterfaceControl for this attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.RatingAppearanceAttribute">
+            <summary>
+            Attribute specifying a field should have the rating appearance.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.RatingAppearanceAttribute.NumberOfStars">
+            <summary>
+            The number of stars in the rating.
+            </summary>
+        </member>
+        <member name="M:Contentful.CodeFirst.RatingAppearanceAttribute.#ctor(System.Int32,System.String)">
+            <summary>
+            Creates a new RatingAppearanceAttribute.
+            </summary>
+            <param name="numberOfStars">The number of stars in the rating.</param>
+            <param name="helpText">The helptext to accompany this field.</param>
+        </member>
+        <member name="P:Contentful.CodeFirst.RatingAppearanceAttribute.EditorInterfaceControl">
+            <summary>
+            Returns the EditorInterfaceControl for this attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.DatePickerAppearanceAttribute">
+            <summary>
+            Attribute specifying that a field should have the datepicker appearance.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.DatePickerAppearanceAttribute.DateFormat">
+            <summary>
+            The date format of the datepicker.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.DatePickerAppearanceAttribute.ClockFormat">
+            <summary>
+            The clock format of the datepicker.
+            </summary>
+        </member>
+        <member name="M:Contentful.CodeFirst.DatePickerAppearanceAttribute.#ctor(Contentful.Core.Models.Management.EditorInterfaceDateFormat,System.String,System.String)">
+            <summary>
+            Creates a new DatePickerAppearanceAttribute.
+            </summary>
+            <param name="dateFormat">The date format of the date picker.</param>
+            <param name="clockFormat">The clock format of the date picker.</param>
+            <param name="helpText">The helptext to accompany this field.</param>
+        </member>
+        <member name="P:Contentful.CodeFirst.DatePickerAppearanceAttribute.EditorInterfaceControl">
+            <summary>
+            Returns the EditorInterfaceControl for this attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.FieldTypeConverter">
+            <summary>
+            Class to convert a <see cref="T:System.Type"/> to a suitable field type.
+            </summary>
+        </member>
+        <member name="M:Contentful.CodeFirst.FieldTypeConverter.Convert(System.Type)">
+            <summary>
+            Converts a type to a suitable Contentful field type.
+            </summary>
+            <param name="type">The type to convert into a field type.</param>
+            <returns>The field type.</returns>
+        </member>
+        <member name="M:Contentful.CodeFirst.FieldTypeConverter.ConvertLinkType(System.Type)">
+            <summary>
+            Converts a type to a LinkType.
+            </summary>
+            <param name="type">The type to convert.</param>
+            <returns>The linktype or null.</returns>
+        </member>
+        <member name="M:Contentful.CodeFirst.FieldTypeConverter.ConvertItemType(System.Type)">
+            <summary>
+            Converts a type to an itemtype for a Contentful array.
+            </summary>
+            <param name="type">The type to convert.</param>
+            <returns>An itemtype or null.</returns>
+        </member>
+        <member name="M:Contentful.CodeFirst.FieldTypeConverter.ConvertItemLinkType(System.Type)">
+            <summary>
+            Converts a type to an item link type.
+            </summary>
+            <param name="type">The type to convert.</param>
+            <returns>The item link type or null.</returns>
+        </member>
+        <member name="M:Contentful.CodeFirst.FieldTypeConverter.IsAsset(System.Type)">
+            <summary>
+            Returns whether a type is an asset or not.
+            </summary>
+            <param name="type">The type to evaluate.</param>
+            <returns>True if the type is an asset, else false.</returns>
+        </member>
+        <member name="M:Contentful.CodeFirst.FieldTypeConverter.IsEntry(System.Type)">
+            <summary>
+            Returns whether a type is an Entry or not.
+            </summary>
+            <param name="type">The type to evaluate.</param>
+            <returns>True if the type is an Entry, else false.</returns>
+        </member>
+        <member name="M:Contentful.CodeFirst.FieldTypeConverter.GetItemType(System.Type)">
+            <summary>
+            Gets the item type for a type.
+            </summary>
+            <param name="type">The type to get an item type for.</param>
+            <returns>The item type or null.</returns>
+        </member>
+        <member name="T:Contentful.CodeFirst.IgnoreContentFieldAttribute">
+            <summary>
+            Attribute to specify that a certain property of a class should be ignored in the creation process.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.ContentfulValidationAttribute">
+            <summary>
+            Base class for validation attributes.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentfulValidationAttribute.HelpText">
+            <summary>
+            The helptext to be displayed for the validation message in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ContentfulValidationAttribute.Validator">
+            <summary>
+            Returns the validator for this validation attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.SizeAttribute">
+            <summary>
+            Specifies that this property should have a size validation on Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.SizeAttribute.Max">
+            <summary>
+            The maximum number.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.SizeAttribute.Min">
+            <summary>
+            The minimum number.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.SizeAttribute.Validator">
+            <summary>
+            Returns the validator for this validation attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.RangeAttribute">
+            <summary>
+            Specifies that this property should have a range validation in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.RangeAttribute.Max">
+            <summary>
+            The maximum number in the range.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.RangeAttribute.Min">
+            <summary>
+            The minimum number in the range.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.RangeAttribute.Validator">
+            <summary>
+            Returns the validator for this validation attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.LinkContentTypeAttribute">
+            <summary>
+            Specifies that this property should have a content type validation in Contentful. Only applicable for Entry and Array of Entry fields.
+            </summary>
+        </member>
+        <member name="M:Contentful.CodeFirst.LinkContentTypeAttribute.#ctor(System.String[])">
+            <summary>
+            Creates a new instance of a LinkContentTypeAttribute.
+            </summary>
+            <param name="contentTypeIds">The ids of the content types to restrict the field for in Contentful.</param>
+        </member>
+        <member name="P:Contentful.CodeFirst.LinkContentTypeAttribute.ContentTypeIds">
+            <summary>
+            The ids of the content types to restrict the field for in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.LinkContentTypeAttribute.Validator">
+            <summary>
+            Returns the validator for this validation attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.InValuesAttribute">
+            <summary>
+            Specifies that this property should have an in values validation in Contentful.
+            </summary>
+        </member>
+        <member name="M:Contentful.CodeFirst.InValuesAttribute.#ctor(System.String[])">
+            <summary>
+            Creates a new instance of InValuesAttribute.
+            </summary>
+            <param name="values">The values allowed for this field in Contentful.</param>
+        </member>
+        <member name="P:Contentful.CodeFirst.InValuesAttribute.Values">
+            <summary>
+            The values allowed for this field in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.InValuesAttribute.Validator">
+            <summary>
+            Returns the validator for this validation attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.MimeTypeAttribute">
+            <summary>
+            Specifies that this property must be of a specific mime type.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.MimeTypeAttribute.MimeTypes">
+            <summary>
+            The mime type groups to restrict the field by in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.MimeTypeAttribute.Validator">
+            <summary>
+            Returns the validator for this validation attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.RegexAttribute">
+            <summary>
+            Specifies that this property should have a regex validation in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.RegexAttribute.Expression">
+            <summary>
+            The expression the field must match in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.RegexAttribute.Flags">
+            <summary>
+            The flags of the expression.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.RegexAttribute.Validator">
+            <summary>
+            Returns the validator for this validation attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.UniqueAttribute">
+            <summary>
+            Specifies that this property should have a unique field validation in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.UniqueAttribute.Validator">
+            <summary>
+            Returns the validator for this validation attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.DateRangeAttribute">
+            <summary>
+            Specifies that this property should have a date range validation in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.DateRangeAttribute.Min">
+            <summary>
+            The minimum date (yyyy-MM-dd)
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.DateRangeAttribute.Max">
+            <summary>
+            The maximum date (yyyy-MM-dd)
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.DateRangeAttribute.Validator">
+            <summary>
+            Returns the validator for this validation attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.FileSizeAttribute">
+            <summary>
+            Specifies that this property should have a file size validation in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.FileSizeAttribute.Min">
+            <summary>
+            The minimum file size
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.FileSizeAttribute.Max">
+            <summary>
+            The maximum file size
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.FileSizeAttribute.MinUnit">
+            <summary>
+            The unit to use for minimum file size. See <see cref="T:Contentful.Core.Models.Management.SystemFileSizeUnits"/> for a list of constants that can be used. 
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.FileSizeAttribute.MaxUnit">
+            <summary>
+            The unit to use for maximum file size. See <see cref="T:Contentful.Core.Models.Management.SystemFileSizeUnits"/> for a list of constants that can be used. 
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.FileSizeAttribute.Validator">
+            <summary>
+            Returns the validator for this validation attribute.
+            </summary>
+        </member>
+        <member name="T:Contentful.CodeFirst.ImageSizeAttribute">
+            <summary>
+            Specifies that this property should have an image size validation in Contentful.
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ImageSizeAttribute.MinWidth">
+            <summary>
+            The minimum image width
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ImageSizeAttribute.MaxWidth">
+            <summary>
+            The maximum image width
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ImageSizeAttribute.MinHeight">
+            <summary>
+            The minimum image height
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ImageSizeAttribute.MaxHeight">
+            <summary>
+            The maximum image height
+            </summary>
+        </member>
+        <member name="P:Contentful.CodeFirst.ImageSizeAttribute.Validator">
+            <summary>
+            Returns the validator for this validation attribute.
+            </summary>
+        </member>
+    </members>
+</doc>

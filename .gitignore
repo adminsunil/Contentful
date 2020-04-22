@@ -3,3 +3,7 @@
 ################################################################################
 
 /Contentful.Website/obj/Debug
+/Contentful.Website/Contentful.Website.csproj.user
+/ContentfulDemo.Web/bin
+/ContentfulDemo.Web/obj/Debug
+/DemoSite.sln.DotSettings.user
