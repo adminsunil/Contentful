@@ -23,5 +23,6 @@ namespace Contentful.API.Configuration
         public static string MasterEnvironment => (string)GetAppSetting("MasterEnvironment");
         public static string BlogContentModelId = "blogPost";
         public static string HomeContentModelId = "homePage";
+        public static string ServiceContentModelId = "services";
     }
 }

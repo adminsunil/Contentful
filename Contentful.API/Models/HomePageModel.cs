@@ -10,5 +10,6 @@
         public string CopyrightText { get; set; }
         public List<ContentSliderModel> ContentSlider { get; set; }
         public List<BannerTilesModel> BannerTiles { get; set; }
+        public List<BlogPageModel> HomepageBlogs { get; set; }
     }
 }

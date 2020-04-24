@@ -3,8 +3,8 @@
     using System.Threading.Tasks;
     using Contentful.Core.Models;
     using Contentful.API.Models;
-    public interface IHomePageService
+    public interface IServicesPageService
     {
-        Task<HomePageModel> GetHomePage();
+        Task<ContentfulCollection<ServicePageModel>> GetServiceList(int numberOfItems = 0);
     }
 }

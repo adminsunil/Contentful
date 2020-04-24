@@ -19,6 +19,7 @@ namespace Contentful.Website
             container.RegisterType<IContentfulClient, ContentfulClient>();
             container.RegisterType<IHomePageService, HomePageService>();
             container.RegisterType<IBlogPageService, BlogPageService>();
+            container.RegisterType<IServicesPageService, ServicesPageService>();
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }

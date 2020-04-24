@@ -1,4 +1,6 @@
-﻿namespace Contentful.Website.Controllers
+﻿using System.Linq;
+
+namespace Contentful.Website.Controllers
 {
     using System;
     using System.Threading.Tasks;
@@ -10,10 +12,12 @@
     {
         private readonly IHomePageService _homePageService;
         private readonly IBlogPageService _blogPageService;
-        public HomeController(IHomePageService homePageService, IBlogPageService blogPageService)
+        private readonly IServicesPageService _servicesPageService;
+        public HomeController(IHomePageService homePageService, IBlogPageService blogPageService, IServicesPageService servicesPageService)
         {
             _homePageService = homePageService ?? throw new ArgumentNullException(nameof(homePageService));
             _blogPageService = blogPageService ?? throw new ArgumentNullException(nameof(blogPageService));
+            _servicesPageService = servicesPageService ?? throw new ArgumentNullException(nameof(servicesPageService));
         }
         [Route("home-page")]
         [HttpGet]
@@ -37,6 +41,14 @@
         {
             var blogDetail = await _blogPageService.GetBlogDetail(slug);
             return Ok(blogDetail);
+        }
+
+        [Route("services-page")]
+        [HttpGet]
+        public async Task<IHttpActionResult> ServicesPage()
+        {
+            var serviceList = await _servicesPageService.GetServiceList();
+            return Ok(serviceList);
         }
     }
 }
