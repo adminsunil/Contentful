@@ -64,10 +64,14 @@
     <Compile Include="Configuration\ContentfulConfiguration.cs" />
     <Compile Include="Models\BannerTilesModel.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\BlogPageModel.cs" />
     <Compile Include="Models\ContentSliderModel.cs" />
     <Compile Include="Models\HomePageModel.cs" />
+    <Compile Include="Models\ServicePageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BlogPageService.cs" />
     <Compile Include="Services\HomePageService.cs" />
+    <Compile Include="Services\IBlogPageService.cs" />
     <Compile Include="Services\IHomePageService.cs" />
   </ItemGroup>
   <ItemGroup>

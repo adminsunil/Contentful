@@ -1,8 +1,8 @@
-﻿using Contentful.CodeFirst;
-
-namespace Contentful.API.Models
+﻿namespace Contentful.API.Models
 {
     using Contentful.Core.Models;
+    using Contentful.CodeFirst;
+
     [ContentType]
     public class ContentSliderModel : BaseModel
     {

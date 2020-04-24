@@ -1,11 +1,10 @@
 ﻿namespace Contentful.API.Models
 {
     using Contentful.Core.Models;
-    public class BannerTilesModel : BaseModel
+    public class ServicePageModel : BaseModel
     {
         public string Title { get; set; }
         public string Description { get; set; }
         public Asset Image { get; set; }
-        public int Order { get; set; }
     }
 }
