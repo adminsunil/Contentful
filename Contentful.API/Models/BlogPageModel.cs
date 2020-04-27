@@ -12,6 +12,5 @@
         public string[] Tags { get; set; }
         public string AuthorName { get; set; }
         public string[] Category { get; set; }
-        public string test { get; set; }
     }
 }
