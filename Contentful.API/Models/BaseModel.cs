@@ -4,6 +4,6 @@ namespace Contentful.API.Models
 {
     public class BaseModel
     {
-        public SystemProperties Sys { get; set; }
+        //public SystemProperties Sys { get; set; }
     }
 }
