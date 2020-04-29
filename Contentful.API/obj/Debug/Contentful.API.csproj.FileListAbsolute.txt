@@ -35,3 +35,4 @@ D:\Learning\Contentful\Project\Contentful.API\bin\Debug\System.Web.Http.xml
 D:\Learning\Contentful\Project\Contentful.API\obj\Debug\Contentful.API.csproj.CopyComplete
 D:\Learning\Contentful\Project\Contentful.API\obj\Debug\Contentful.API.dll
 D:\Learning\Contentful\Project\Contentful.API\obj\Debug\Contentful.API.pdb
+D:\Learning\Contentful\Project\Contentful.API\obj\Debug\Contentful.API.csprojAssemblyReference.cache
