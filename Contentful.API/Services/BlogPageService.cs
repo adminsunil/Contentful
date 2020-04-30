@@ -20,15 +20,18 @@
             var httpClient = new HttpClient();
             _contentfulClient = new ContentfulClient(httpClient, GetContentfulOptions());
         }
-        public async Task<ContentfulCollection<BlogPageModel>> GetBlogList(int numberOfItems = 0)
+        public async Task<ContentfulCollection<BlogPageModel>> GetBlogList(int pageNumber, int numberOfItems = 0)
         {
             try
             {
                 var query = QueryBuilder<BlogPageModel>.New.ContentTypeIs(contentTypeId: BlogContentModelId);
-                if (numberOfItems != 0)
+                if (numberOfItems == 0)
                 {
-                    query = query.Limit(numberOfItems);
+                    numberOfItems = 10;
                 }
+
+                query = query.Skip((pageNumber - 1) * numberOfItems).Limit(numberOfItems);
+
                 var result = _contentfulClient.GetEntries(query);
                 return await result;
             }
