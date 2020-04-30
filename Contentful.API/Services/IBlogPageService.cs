@@ -5,7 +5,7 @@
     using Contentful.API.Models;
     public interface IBlogPageService
     {
-        Task<ContentfulCollection<BlogPageModel>> GetBlogList(int numberOfItems = 0);
+        Task<ContentfulCollection<BlogPageModel>> GetBlogList(int pageNumber,int numberOfItems = 0);
         Task<BlogPageModel> GetBlogDetail(string slug);
 
     }
