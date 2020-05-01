@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace Contentful.Website.Controllers
 {
     using System;
@@ -7,6 +5,7 @@ namespace Contentful.Website.Controllers
     using System.Web.Http;
     using System.Web.Http.Cors;
     using Contentful.API.Services;
+    using Contentful.API.Models;
 
     [RoutePrefix("contentful")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -27,15 +26,20 @@ namespace Contentful.Website.Controllers
         public async Task<IHttpActionResult> HomePage()
         {
             var homePage = await _homePageService.GetHomePage();
+            var data = _blogPageService.GetCategoryCount();
             return Ok(homePage);
         }
 
         [Route("blog-page")]
         [HttpGet]
-        public async Task<IHttpActionResult> BlogPage(int pageNumber,int numberOfItems)
+        public async Task<IHttpActionResult> BlogPage(int pageNumber, int numberOfItems)
         {
-            var blogList = await _blogPageService.GetBlogList(pageNumber, numberOfItems);
-            return Ok(blogList);
+            Blogs model = new Blogs
+            {
+                BlogList = await _blogPageService.GetBlogList(pageNumber, numberOfItems),
+                CategoryCount = await _blogPageService.GetCategoryCount()
+            };
+            return Ok(model);
         }
 
         [Route("blog-detail")]

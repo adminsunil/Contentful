@@ -1,15 +1,15 @@
-﻿using System.Linq;
+﻿
 
 namespace Contentful.API.Services
 {
-    using System;
-    using System.Net.Http;
-    using System.Threading.Tasks;
     using Contentful.API.Configuration;
     using Contentful.API.Models;
     using Contentful.Core;
-    using Contentful.Core.Models;
     using Contentful.Core.Search;
+    using System;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Threading.Tasks;
 
     public class HomePageService : ContentfulConfiguration, IHomePageService
     {
