@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
     using Contentful.API.Configuration;
     using Contentful.API.Models;
     using Contentful.Core;
@@ -39,6 +40,23 @@
             {
                 return null;
             }
+        }
+
+
+
+        public async Task<Dictionary<string, int>> GetCategoryCount()
+        {
+            var query = QueryBuilder<BlogPageModel>.New.ContentTypeIs(contentTypeId: BlogContentModelId);
+
+            var entries = await _contentfulClient.GetEntries(query);
+
+            var categoryCount= entries
+                .GroupBy(x => x.Category)
+                .SelectMany(x => x.Key)
+                .GroupBy(x => x)
+                .Select(x => new { category = x.Key, count = x.Count() });
+
+            return categoryCount.ToDictionary(x => x.category, x => x.count);
         }
 
         public async Task<BlogPageModel> GetBlogDetail(string slug)

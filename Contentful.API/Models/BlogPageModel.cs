@@ -1,4 +1,6 @@
-﻿namespace Contentful.API.Models
+﻿using System.Collections.Generic;
+
+namespace Contentful.API.Models
 {
     using Contentful.Core.Models;
     public class BlogPageModel : BaseModel
@@ -12,5 +14,11 @@
         public string[] Tags { get; set; }
         public string AuthorName { get; set; }
         public string[] Category { get; set; }
+    }
+
+    public class Blogs
+    {
+        public ContentfulCollection<BlogPageModel> BlogList { get; set; }
+        public Dictionary<string, int> CategoryCount { get; set; }
     }
 }
