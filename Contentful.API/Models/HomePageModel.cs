@@ -10,6 +10,6 @@ namespace Contentful.API.Models
         public string CopyrightText { get; set; }
         public List<ContentSliderModel> ContentSlider { get; set; }
         public List<BannerTilesModel> BannerTiles { get; set; }
-        public List<BlogPageModel> HomepageBlogs { get; set; }
+        public List<ServicePageModel> Services { get; set; }
     }
 }
